@@ -183,8 +183,6 @@ def draw_game_over(screen, font, game_data):
     screen.blit(game_over_text, text_rect)
 
 
-
-
 # handel all events such as move, fire, start game, etc 
 def handle_events(game_data):
 
@@ -241,7 +239,7 @@ def main():
 
 
         elif game_data.current_state == GameState.PLAYING:
-            #draw_game(screen, game_data)
+            screen.fill(Constants.black)
 
             ret, frame = capture.read()
             if not ret:
@@ -259,8 +257,11 @@ def main():
                 x_coordinate1 = knuckle1.x
                 x_pixel = int(x_coordinate1 * Constants.window_width)
 
-                game_data.spaceship.x = x_pixel
-                game_data.spaceship.rect.x = x_pixel
+                x_pixels = max(0, min(Constants.window_width - game_data.spaceship.width, x_pixel))
+                game_data.spaceship.x = x_pixels
+                game_data.spaceship.rect.x = x_pixels
+
+                pg.draw.rect(screen, Constants.white, game_data.spaceship.rect)
 
             # draw_game(screen, game_data)
             game_data.spaceship.draw(screen, Constants.white)
