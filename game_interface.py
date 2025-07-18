@@ -2,6 +2,8 @@ import pygame as pg
 from enum import Enum
 import mediapipe as mp
 import cv2
+from knn_model import KNN, load_dataset
+import numpy as np
 
 
 mp_hands = mp.solutions.hands
@@ -205,6 +207,11 @@ def handle_events(game_data):
 # main game loop 
 def main():
     # Initialize pygame
+
+    features, labels = load_dataset("dataset.csv")
+    knn_model = KNN(k=5)
+    knn_model.fit(features, labels)
+
     pg.init()
     settings = GameSettings()
     game_data = GameData()
@@ -253,6 +260,19 @@ def main():
 
             if result.multi_hand_landmarks:
                 hand_landmarks = result.multi_hand_landmarks[0]
+
+                landmark_points = []
+                for lm in hand_landmarks.landmark:
+                    landmark_points.extend([lm.x, lm.y, lm.z])
+                landmark_points = np.array(landmark_points).reshape(1, -1)
+
+                predicted = knn_model.predict(landmark_points)[0]
+                #this turns the list of values into a numpy array
+
+                font = pg.font.SysFont(None, 20)
+                text_surface = font.render(f"Gesture: {predicted}", True, Constants.white)
+                screen.blit(text_surface, (20, 20))
+
                 knuckle1 = hand_landmarks.landmark[14]
                 x_coordinate1 = knuckle1.x
                 x_pixel = int(x_coordinate1 * Constants.window_width)
