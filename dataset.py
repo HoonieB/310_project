@@ -8,7 +8,7 @@ hands = mp_hands.Hands()
 mp_draw = mp.solutions.drawing_utils
 
 #create the file that will hold the dataset if it doesn't exist yet
-csv_file = 'dataset.csv'
+csv_file = 'dataset2.csv'
 if not os.path.exists(csv_file):
     with open(csv_file, 'w', newline='') as file:
         writer = csv.writer(file)

@@ -3,7 +3,7 @@ from sklearn.model_selection import KFold
 import numpy as np
 
 
-X, Y = load_dataset('dataset.csv') #load the dataset
+X, Y = load_dataset('dataset2.csv') #load the dataset
 
 kfold = KFold(n_splits=10, shuffle=True, random_state=42) #split data into training/test sets (5 by default)
 accuracies = []

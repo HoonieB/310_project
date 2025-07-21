@@ -208,7 +208,7 @@ def handle_events(game_data):
 def main():
     # Initialize pygame
 
-    features, labels = load_dataset("dataset.csv")
+    features, labels = load_dataset("dataset2.csv")
     knn_model = KNN(k=5)
     knn_model.fit(features, labels)
 
