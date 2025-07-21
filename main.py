@@ -47,10 +47,13 @@ print("Precisions: ", precisions)
 print ("Avg Precision: ", np.mean(precisions))
 
 print("Recalls: ", recalls)
-print ("Avg Precison: ", np.mean(recalls))
+print ("Avg Recall: ", np.mean(recalls))
 
 print("Specificities: ", specificities)
 print ("Avg Specificity: ", np.mean(specificities), "\n")
+
+print("Accuracies: ", accuracies)
+print ("Avg Accuracy: ", np.mean(accuracies), "\n")
 
 accuracies = []
 precisions = []
@@ -93,7 +96,7 @@ print("Precisions: ", precisions)
 print ("Avg Precision: ", np.mean(precisions))
 
 print("Recalls: ", recalls)
-print ("Avg Precison: ", np.mean(recalls))
+print ("Avg Recall: ", np.mean(recalls))
 
 print("Specificities: ", specificities)
 print ("Avg Specificity: ", np.mean(specificities), "\n")
