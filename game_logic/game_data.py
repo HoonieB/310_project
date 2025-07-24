@@ -17,10 +17,6 @@ class GameData:
         self.enemies = []
         self.enemy_spawn_delay = 2000
     
-    def is_game_over(self):
-        return self.lives <= 0 
-        # || enemy.y == Constants.height
-    
     def reset_game(self):
         self.score = Constants.initial_score
         self.lives = Constants.initial_lives

@@ -17,6 +17,6 @@ class Enemy:
         self.enemy_rect.y = self.y
     
     def draw(self, screen):
-        print(f"drawing enemy, x={self.x}, y={self.y}")
+        #print(f"drawing enemy, x={self.x}, y={self.y}")
         screen.blit(self.enemy_image, (self.x, self.y))
 

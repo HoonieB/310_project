@@ -21,19 +21,19 @@ class Spaceship:
         self.spaceship_image = pg.transform.scale(self.spaceship_image, (self.width, self.height))
 
     def move(self, direction, screen_width):
-        print(f"before moving, x={self.x}, direction={direction}, screen_width={screen_width}")
+        #print(f"before moving, x={self.x}, direction={direction}, screen_width={screen_width}")
         if direction == "left" and self.x > 0:
             self.x -= self.spaceship_speed
-            print(f"moving left, x={self.x},")
+            #print(f"moving left, x={self.x},")
         elif direction == "right" and self.x < screen_width - self.width:
             self.x += self.spaceship_speed
-            print(f"moving right spaceship function is called, x={self.x}")
+            #print(f"moving right spaceship function is called, x={self.x}")
 
         self.spaceship_rect.x = self.x
-        print(f"after moving, x={self.x}, y={self.y}")
+        #print(f"after moving, x={self.x}, y={self.y}")
 
     def draw(self, screen):
-        print(f"drawing spaceship, x={self.x}, y={self.y}")
+        #print(f"drawing spaceship, x={self.x}, y={self.y}")
         screen.blit(self.spaceship_image, (self.x, self.y))
 
     def get_center(self):

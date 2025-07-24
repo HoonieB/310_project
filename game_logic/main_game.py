@@ -4,10 +4,9 @@ from constants import Constants
 from constants import GameState
 from game_settings import GameSettings
 from game_data import GameData
-from spaceship import Spaceship
 from enemy import Enemy
 from draw_game import *
-from events import handle_events
+from events import handle_game_events, handle_menu_events, handle_game_over_events
 
 # main game loop 
 def main():
@@ -26,34 +25,17 @@ def main():
     
     # Main game loop
     while game_data.running:
-        # Handle events
-        click_event = handle_events(game_data)
-
-        # Update game state
-        if game_data.is_game_over():
-            game_data.current_state = GameState.GAME_OVER
-        
-        # Draw current screen and handle interactions
-        if game_data.current_state == GameState.MENU:
+        # Menu
+        if (game_data.current_state == GameState.MENU):
             start_button = draw_menu(screen, font, settings)
-            
-            # Handle button clicks
-            if click_event and click_event.type == pg.MOUSEBUTTONDOWN:
-                mouse_pos = pg.mouse.get_pos()
-                if start_button.is_clicked(mouse_pos):
-                    print("Game started!") 
-                    ship_x = (Constants.window_width // 2)
-                    ship_y = Constants.window_height - 40
-                    # create a new spaceship object
-                    game_data.spaceship = Spaceship(ship_x, ship_y) # type: ignore
-                    game_data.current_state = GameState.PLAYING
-                    if game_data.spaceship:
-                        print("spaceship is created!")
-                    else: 
-                        print("No spaceship created!")
-
+            for event in pg.event.get():
+                handle_menu_events(game_data, event, start_button)
+                
+        # Playing
         elif game_data.current_state == GameState.PLAYING:
             draw_game(screen, game_data)
+            for event in pg.event.get():
+                handle_game_events(game_data, event)
             
             if game_data.spaceship:
                 game_data.spaceship.draw(screen)
@@ -84,7 +66,6 @@ def main():
                     game_data.enemy_spawn_delay = game_data.enemy_spawn_delay - 100
                 
                 #clear game data
-                #game_data.enemies_hit = 0
                 game_data.enemies.clear()
             
             for bullet in game_data.bullets[:]:
@@ -101,6 +82,8 @@ def main():
                     game_data.lives -= 1
                     game_data.enemies_hit += 1
                     game_data.enemies.remove(enemy)
+                    if game_data.lives == 0:
+                        game_data.current_state = GameState.GAME_OVER
                     break
 
             for enemy in game_data.enemies[:]:
@@ -109,19 +92,18 @@ def main():
 
                 if enemy.y + enemy.height >= Constants.window_height:
                     game_data.current_state = GameState.GAME_OVER
-
-
-            
     
+        # Game Over
         elif game_data.current_state == GameState.GAME_OVER:
             draw_game_over(screen, font, game_data)
+            for event in pg.event.get():
+                handle_game_over_events(game_data, event)
+        
         # Update display
         pg.display.flip()
     
     # end the game 
     pg.quit()
-
-
 
 if __name__ == "__main__":
     main()

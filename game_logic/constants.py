@@ -28,7 +28,7 @@ class Constants:
     black = (0, 0, 0)
 
     # Game values settings
-    initial_lives = 5
+    initial_lives = 1
     initial_score = 0
     initial_level = 0
     initial_enemy_count = 5

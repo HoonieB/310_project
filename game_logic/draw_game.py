@@ -41,8 +41,6 @@ def draw_game(screen, game_data):
     # draw level label at the top center of the screen 
     level_label = level_font.render(f"Level: {game_data.level}", True, Constants.white)
     screen.blit(level_label, (Constants.window_width//2 - 50, 10))
- 
-
 
 # draw the game over screen 
 def draw_game_over(screen, font, game_data):
