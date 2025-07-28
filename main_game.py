@@ -25,7 +25,7 @@ mp_draw = mp.solutions.drawing_utils
 # main game loop 
 def main():
 
-    features, labels = load_dataset("dataset2.csv")
+    features, labels = load_dataset("dataset.csv")
     knn_model = KNN(k=5)
     knn_model.fit(features, labels)
 
