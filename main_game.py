@@ -25,7 +25,7 @@ mp_draw = mp.solutions.drawing_utils
 # main game loop 
 def main():
 
-    features, labels = load_dataset("dataset.csv")
+    features, labels = load_dataset("dataset2.csv")
     knn_model = KNN(k=5)
     knn_model.fit(features, labels)
 
@@ -100,6 +100,8 @@ def main():
 
                 
                     handle_game_events(game_data, smoothed_prediction)
+                else:
+                    handle_game_events(game_data, None)
                 
             draw_game(screen, game_data)
         
